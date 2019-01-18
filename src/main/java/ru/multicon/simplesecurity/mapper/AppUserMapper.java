@@ -18,7 +18,11 @@ public class AppUserMapper implements RowMapper<AppUser> {
         String userName = rs.getString("User_Name");
         String encrytedPassword = rs.getString("Encryted_Password");
 
-        return new AppUser(userId, userName, encrytedPassword);
+        return AppUser.builder()
+                .userId(userId)
+                .userName(userName)
+                .encrytedPassword(encrytedPassword)
+                .build();
     }
 
 }
