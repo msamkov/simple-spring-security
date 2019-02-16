@@ -1,0 +1,47 @@
+version: '3.7'
+services:
+  db-membership:
+    image: postgres:11.1
+    environment:
+    - POSTGRES_USER=dbadmin
+    - POSTGRES_PASSWORD=passworddbadmin
+    ports:
+    - 45432:5432
+    expose:
+    - 5432
+    volumes:
+    - db-membership-data:/var/lib/postgresql/data/
+    networks:
+    - backend
+
+  simplesecurity:
+    depends_on:
+    - db-membership
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: multicon/simplesecurity
+    ports:
+    - 8083:8080
+    - 5006:5005
+    expose:
+    - 8080
+    - 5005
+    networks:
+    - backend
+    environment:
+    - SPRING_PROFILES_ACTIVE=prod
+    - SERVER_PORT=8080
+    - SPRING_DATASOURCE_JDBC_URL=jdbc:postgresql://db-membership:5432/dbadmin
+    - SPRING_DATASOURCE_USERNAME=dbadmin
+    - SPRING_DATASOURCE_PASSWORD=passworddbadmin
+    - JAVA_OPTS=-Xmx500m -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005
+
+
+
+networks:
+  backend:
+    driver: bridge
+
+volumes:
+  db-analytics-data:

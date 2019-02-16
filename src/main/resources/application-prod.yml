@@ -1,0 +1,20 @@
+logging:
+  path: logs
+  file: logs/pgslowpoke.log
+  level:
+    org.springframework.web: DEBUG
+    ru.multicon: DEBUG
+
+spring:
+  datasource:
+    url: jdbc:postgresql://db-analytics:35432/analytics
+    username: analytics
+    password: passwordanalytics
+
+server:
+  tomcat:
+    max-threads: 5
+  port: 8080
+
+
+

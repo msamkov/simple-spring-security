@@ -1,0 +1,29 @@
+logging:
+  level:
+    org.springframework.web: DEBUG
+    ru.multicon: DEBUG
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:35432/db_simplesecurity
+    username: analytics
+    password: passwordanalytics
+  jpa:
+    hibernate:
+      ddl-auto: update
+      temp:
+        use_jdbc_metadata_defaults: false
+    properties:
+      hibernate:
+        jdbc:
+          lob.non_contextual_creation: true
+
+
+
+server:
+  tomcat:
+    max-threads: 5
+  port: 8080
+
+
+
